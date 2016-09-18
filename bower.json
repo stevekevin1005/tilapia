@@ -1,0 +1,21 @@
+{
+  "name": "tilapia",
+  "description": "a Sails application",
+  "main": "app.js",
+  "authors": [
+    "yangjunzhang"
+  ],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jsrender": "^0.9.80",
+    "sweetalert2": "^4.2.6"
+  }
+}

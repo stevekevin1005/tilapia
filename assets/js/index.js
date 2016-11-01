@@ -10,6 +10,7 @@ $(function(){
 				url: "/tilapia/2/go?name="+key,
 				type: 'get',
 				success: function(goList){
+					console.log('goList-->', goList);
 					$(".tilapia_2_load").removeClass("loader");
 					var goListTemplate = $.templates( "#goList" );
 					var goListHtml = goListTemplate.render(goList);

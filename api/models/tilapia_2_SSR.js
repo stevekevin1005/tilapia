@@ -12,26 +12,30 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
-    fiveFrinkinSequence: {
+    "5'frinkinSequence": {
       type: Sequelize.STRING,
       allowNull: false
     },
-    threeFrinkinSequence: {
+    "3'frinkinSequence": {
       type: Sequelize.STRING,
       allowNull: false
     },
-    startLocation: {
+    start: {
       type: Sequelize.INTEGER,
       allowNull: false
     },
-    endLocation: {
+    end: {
       type: Sequelize.INTEGER,
       allowNull: false
     }
   },
   associations: function() {
-    tilapia_1_SSR.belongsToMany(tilapia_2_information,{
-      through: 'tilapia2_SSR_information'
+    tilapia_2_SSR.belongsToMany(tilapia_2_VAR,{
+      through: 'tilapia_2_SSR_VAR'
     });
+  },
+  options: {
+    timestamps: false,
+    tableName: 'tilapia_2_ssr'
   }
 };

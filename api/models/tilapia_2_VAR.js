@@ -1,19 +1,10 @@
 module.exports = {
   attributes: {
-    id: {
-      type: Sequelize.INTEGER,
-      allowNull: false, 
-      primaryKey: true
-    },
     contig: {
       type: Sequelize.STRING,
       allowNull: false
     },
     position: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    no_use1: {
       type: Sequelize.STRING,
       allowNull: false
     },
@@ -25,18 +16,18 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
-    no_use2: {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    no_use3: {
-      type: Sequelize.INTEGER,
+    quality: {
+      type: Sequelize.FLOAT,
       allowNull: false
     }
   },
   associations: function() {
-    tilapia_2_variation.belongsToMany(tilapia_2_information,{
-      through: 'tilapia2_variation_information'
+    tilapia_2_VAR.belongsToMany(tilapia_2_SSR,{
+      through: 'tilapia_2_SSR_VAR'
     });
+  },
+  options: {
+    timestamps: false,
+    tableName: 'tilapia_2_variation'
   }
 };

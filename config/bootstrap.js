@@ -12,10 +12,23 @@
 module.exports.bootstrap = async cb => {
 	try{
 
-		// var tilapia_2_go_annotation_json = require('../json/tilapia_2_go_annotation.json');
-		// tilapia_2_go_annotation_json.forEach(async (tilapia_2_go_annotation,index) => {
-		// 	tilapia_2_go_annotation.create(tilapia_2_go_annotation);
-		// });
+		let tilapia_ssr = await tilapia_2_SSR.findAll();
+		for(var i in tilapia_ssr){
+			var contig = tilapia_ssr[i].contig;
+			var start = tilapia_ssr[i].start - 200;
+			var end = tilapia_ssr[i].end + 200;
+			let tilapia_2_variation = await tilapia_2_VAR.findAll({
+				where:{
+					contig: contig,
+					position: {
+						$gte: start,
+						$lte: end
+					}
+				}
+			});
+
+			await tilapia_ssr[i].setTilapia_2_VARs(tilapia_2_variation);
+		}
 		
 		cb();
 	}

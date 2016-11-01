@@ -54,7 +54,7 @@ module.exports = {
 						let variationList = await sequelize.query("SELECT * FROM `tilapia_2_variation` WHERE contig = '"+ contig +"' AND position <= "+ SSRList[0][j].end +" AND position >= "+ SSRList[0][j].start +";");
 						SSRList[0][j].variation = variationList[0];
 						result.push(SSRList[0][j]);
-						console.log('->', result);
+						// console.log('->', result);
 					}
 				}
 			}

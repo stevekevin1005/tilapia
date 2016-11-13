@@ -25,39 +25,22 @@ module.exports = {
 			return e;
 		}
 	},
-	getSSR: async (geneId) => {
+	getSSR: async (geneIdList) => {
 		try{
-			let result = new Array();
-			let position = await sequelize.query("SELECT * FROM `tilapia_2_information` WHERE geneId = "+ geneId +";");
 
-			//every position should check
-			for(var i in position[0]){
-				//check if the ssr has been checked
-				let start = position[0][i].start;
-				let end = position[0][i].end;
-				let contig = position[0][i].contig;
-				let region = position[0][i].region + "(parent:" + position[0][i].parent + ")";
-
-				//find ssr information
-				let SSRList = await sequelize.query("SELECT * FROM `tilapia_2_ssr` WHERE contig = '"+ contig +"' AND start <= "+ end +" AND end >= "+ start +";");
-
-				for(var j in SSRList[0]){
-					let index = await module.exports.getIndex(result, SSRList[0][j].id);
-	
-					if(index && index != undefined){
-						result[index].region = result[index].region+" "+region;
-					}
-					else{
-						SSRList[0][j].region = region;
-						
-						
-						let variationList = await sequelize.query("SELECT * FROM `tilapia_2_variation` WHERE contig = '"+ contig +"' AND position <= "+ SSRList[0][j].end +" AND position >= "+ SSRList[0][j].start +";");
-						SSRList[0][j].variation = variationList[0];
-						result.push(SSRList[0][j]);
-						// console.log('->', result);
-					}
-				}
-			}
+			let result = await tilapia2SSR.findAll({
+				include: [{
+					model: tilapia2inf,
+					where: {
+						$or: geneIdList
+					},
+					order: [
+						['geneId', 'DESC'],
+					]
+				},{
+					model: tilapia2VAR
+				}]
+			});
 
 			return result;
 		}catch(e){

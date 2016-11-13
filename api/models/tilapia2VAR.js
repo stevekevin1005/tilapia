@@ -4,38 +4,30 @@ module.exports = {
       type: Sequelize.STRING,
       allowNull: false
     },
-    SSRPattern1: {
+    position: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    SSRPattern2: {
+    ref: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    "5'frinkinSequence": {
+    alt: {
       type: Sequelize.STRING,
       allowNull: false
     },
-    "3'frinkinSequence": {
-      type: Sequelize.STRING,
-      allowNull: false
-    },
-    start: {
-      type: Sequelize.INTEGER,
-      allowNull: false
-    },
-    end: {
-      type: Sequelize.INTEGER,
+    quality: {
+      type: Sequelize.FLOAT,
       allowNull: false
     }
   },
   associations: function() {
-    tilapia_2_SSR.belongsToMany(tilapia_2_VAR,{
+    tilapia2VAR.belongsToMany(tilapia2SSR,{
       through: 'tilapia_2_SSR_VAR'
     });
   },
   options: {
     timestamps: false,
-    tableName: 'tilapia_2_ssr'
+    tableName: 'tilapia_2_variation'
   }
 };

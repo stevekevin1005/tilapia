@@ -53,7 +53,76 @@ $(function(){
 											var SSRClusterHtml = SSRClusterTemplate.render(SSRClusterList);
 											$("#SSRDetection >div:last").append(SSRClusterHtml);
 
+											$(".variationDetail").on('click', function(){
+												
+												var geneIndex = $(this).data('gene');
+												var ssrIndex = $(this).data('ssr');
+												var start = SSRClusterList[geneIndex].SSRList[ssrIndex].start;
+												var end = SSRClusterList[geneIndex].SSRList[ssrIndex].end;
+												var pattern = SSRClusterList[geneIndex].SSRList[ssrIndex].SSRPattern1;
+												var SSRArray = SSRClusterList[geneIndex].SSRList[ssrIndex].SSR;
 
+												var ssr = "<tr style='background: antiquewhite'>";
+												for(var i = start-200 ;i<= end+200 ;i++ ){
+													ssr += ("<td>"+i+"</td>")	;
+												}
+												ssr += "</tr>";
+
+												ssr += "<tr style='background: antiquewhite'>";
+												for(var i = 0;i < 200;i++){
+													ssr += ("<td>"+SSRClusterList[geneIndex].SSRList[ssrIndex].fk5[i]+"</td>");
+												}
+												for(var i = 0; i < SSRArray.length; i++){
+													ssr += ("<td>"+SSRArray[i]+"</td>");
+												}
+												for(var i = 0;i < 200;i++){
+													ssr += ("<td>"+SSRClusterList[geneIndex].SSRList[ssrIndex].fk3[i]+"</td>");
+												}
+												ssr += "</tr>";
+
+												for(var i = 0; i < SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs.length; i++){
+													ssr += "<tr style='background: cyan'>";
+													var refArray = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].ref.toUpperCase().split("");
+													var refIndex = 0;
+													for(var k = start-200;k < end+200;k++){
+														var position = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].position;
+														var length = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].ref.length;
+														
+														if((k >= position - 1) && (k <= position + length)){
+															ssr += ("<td>"+refArray[refIndex]+"</td>");
+															refIndex++;
+														}
+														else{
+															ssr += "<td></td>";
+														}
+													}
+													ssr += "</tr>";
+
+													ssr += "<tr>";
+													var altArray = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].alt.toUpperCase().split("");
+													var altIndex = 0;
+													var position = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].position;
+													var length = SSRClusterList[geneIndex].SSRList[ssrIndex].tilapia2VARs[i].alt.length;
+													console.log('position->', position);
+													console.log('length->', length);
+													for(var k = start-200;k < end+200;k++){
+														if(k >= position - 1 && k <= position + length){
+															ssr += ("<td>"+altArray[altIndex]+"</td>");
+															altIndex++;
+														}
+														else{
+															ssr += "<td></td>";
+														}
+													}
+													ssr += "</tr>";
+												}
+
+												swal({
+												  title: "<h1>SSRdatail</h1>",
+												  html: "<div style='overflow:scroll;'><table  class='table table-bordered'>"+ssr+"</table></div>",
+												  width: 1000 
+												});
+											});
 										},
 										error: function(e){
 											$(".tilapia_2_load").removeClass("loader");

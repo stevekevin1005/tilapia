@@ -46,7 +46,6 @@ module.exports = {
 							SSRObj[geneId][SSRId] = SSRList[i];
 						}
 					}
-					console.log(i+"	"+k+"	"+SSRList[i].tilapia2infs[k]);
 				}
 			}
 			
@@ -63,7 +62,22 @@ module.exports = {
 					for(var j in arr[k].dataValues.tilapia2infs){
 						arr[k].dataValues.region += arr[k].dataValues.tilapia2infs[j].region + "(parent: " + arr[k].dataValues.tilapia2infs[j].parent + ")	";
 					}
+					arr[k].dataValues.fk3 = arr[k].dataValues["3'frinkinSequence"].split("");
+					arr[k].dataValues.fk5 = arr[k].dataValues["5'frinkinSequence"].split("");
 
+					var start = arr[k].dataValues["start"];
+					var end = arr[k].dataValues["end"];
+					var pattern = arr[k].dataValues["SSRPattern1"].split("");
+					var j = 0;
+					var SSR = new Array();
+					for(start; start <= end; start++){
+						SSR.push(pattern[j]);
+						j++;
+						if(j >= pattern.length){
+							j = 0;
+						}
+					}
+					arr[k].dataValues.SSR = SSR;
 					arr[k].dataValues.variationLength = arr[k].dataValues.tilapia2VARs.length;
 					arr[k].dataValues.variation = JSON.stringify(arr[k].dataValues.tilapia2VARs);
 				}

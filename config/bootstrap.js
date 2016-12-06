@@ -12,23 +12,64 @@
 module.exports.bootstrap = async cb => {
 	try{
 
-		let tilapia_ssr = await tilapia_2_SSR.findAll();
-		for(var i in tilapia_ssr){
-			var contig = tilapia_ssr[i].contig;
-			var start = tilapia_ssr[i].start - 200;
-			var end = tilapia_ssr[i].end + 200;
-			let tilapia_2_variation = await tilapia_2_VAR.findAll({
-				where:{
-					contig: contig,
-					position: {
-						$gte: start,
-						$lte: end
-					}
-				}
-			});
+		// let go_annotation = await tilapia2annotation.findAll();
+		// for(var i in go_annotation){
+		// 	var geneId = go_annotation[i].geneid;
+		// 	var goid = go_annotation[i].goid;
 
-			await tilapia_ssr[i].setTilapia_2_VARs(tilapia_2_variation);
-		}
+		// 	var go_terms = await tilapia2term.findAll({
+		// 		where:{
+		// 			id: goid
+		// 		}
+		// 	});
+
+		// 	var informations = await tilapia2inf.findAll({
+		// 		where:{
+		// 			geneId: geneId
+		// 		}
+		// 	});
+		
+		// 	console.log('informations->', informations);
+		// 	console.log('go_terms->', go_terms);
+		// 	// await go_annotation[i].setTilapia2terms(go_terms);
+		// 	await go_annotation[i].setTilapia2infs(informations);
+		// 	if(i % 1000 == 0){
+		// 		console.log('now-->', i);
+		// 	}
+		// }
+		// let go_terms = await tilapia2term.findAll();
+		// for(var i in go_terms){
+		// 	var goid = go_terms[i].id;
+		// 	var tilapia2annotation = await tilapia2annotation.findOne({
+		// 		where:{
+		// 			goid: goid
+		// 		}
+		// 	});
+		// 	console.log('-->',go_terms[i].setTilapia2annotations);
+		// 	await go_terms[i].setTilapia2annotations(tilapia2annotation);
+		// }
+		let tilapia_ssr = await tilapia2SSR.findOne();
+		console.log(tilapia_ssr);
+		// for(var i in tilapia_ssr){
+		// 	var contig = tilapia_ssr[i].contig;
+		// 	var start = tilapia_ssr[i].start - 200;
+		// 	var end = tilapia_ssr[i].end + 200;
+		// 	let tilapia2infs = await tilapia2inf.findAll({
+		// 		where:{
+		// 			contig: contig,
+		// 			start: {
+		// 				$lte: end
+		// 			},
+		// 			end: {
+		// 				$gte: start
+		// 			}
+		// 		}
+		// 	});
+		// 	await tilapia_ssr[i].setTilapia2infs(tilapia2infs);
+		// 	if(i % 1000 == 0){
+		// 		console.log('now-->', i);
+		// 	}
+		// }
 		
 		cb();
 	}

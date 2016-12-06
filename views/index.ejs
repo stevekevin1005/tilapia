@@ -817,40 +817,7 @@
 				</thead>
 				<tbody>
 					{{for SSRList}}
-						<tr>
-							<td>{{>SSRPattern1}}</td>
-							<td>{{>SSRPattern2}}</td>
-							<td>{{>start}}</td>
-							<td>{{>end}}</td>
-							<td>{{>region}}</td>
-							<td>{{>variationLength}}</td>
-						</tr>
-					{{/for}}
-				</tbody>
-			</table>
-		</div>
-	</script>
-
-	<script id="variationDetail" type="text/x-jsrender">
-		<div class="col-md-12">
-			<table class="table m-t-30">
-				<thead>
-					<tr>
-						<td colspan="5">Gene Id: {{:geneId}}
-						</td>
-					</tr>
-					<tr>
-						<td>SSRPattern1</td>
-						<td>SSRPattern2</td>
-						<td>start</td>
-						<td>end</td>
-						<td>region</td>
-						<td>variation</td>
-					</tr>
-				</thead>
-				<tbody>
-					{{for SSRList}}
-						<tr>
+						<tr class="variationDetail" data-gene={{:#index}} data-ssr={{>#index}}>
 							<td>{{>SSRPattern1}}</td>
 							<td>{{>SSRPattern2}}</td>
 							<td>{{>start}}</td>
